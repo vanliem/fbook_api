@@ -30,6 +30,8 @@ class Book extends AbstractEloquent
         'office_id',
     ];
 
+    protected $hidden = ['owner_id', 'category_id', 'office_id'];
+
     public function owner()
     {
         return $this->belongsTo(User::class);
@@ -48,6 +50,16 @@ class Book extends AbstractEloquent
     public function users()
     {
         return $this->belongsToMany(User::class)->withPivot('status', 'type');
+    }
+
+    public function userReadingBook()
+    {
+        return $this->belongsToMany(User::class)->withPivot('status', 'type')->wherePivot('status',2);
+    }
+
+    public function usersWaitingBook()
+    {
+        return $this->belongsToMany(User::class)->withPivot('status', 'type')->wherePivot('status',1);
     }
 
     public function reviews()

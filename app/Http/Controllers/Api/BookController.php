@@ -55,4 +55,35 @@ class BookController extends ApiController
             'data' => $paginate->items(),
         ];
     }
+
+    public function show($id)
+    {
+        parent::show($id);
+
+        $this->compacts['item']->load(['image',
+            'userReadingBook' => function ($query) {
+                $query->select('id', 'name');
+                $query->orderBy('book_user.created_at', 'ASC');
+                $query->with('avatar');
+            },
+            'usersWaitingBook' => function($query) {
+                $query->select('id', 'name');
+            },
+            'category' => function($query) {
+                $query->select('id', 'name');
+            },
+            'office' => function($query) {
+                $query->select('id', 'name');
+            },
+            'owner' => function($query) {
+
+                $query->select('id', 'name');
+            },
+            'reviews' => function($query) {
+                $query->select('reviews.id','name');
+            }
+        ]);
+
+      return $this->jsonRender();
+    }
 }
