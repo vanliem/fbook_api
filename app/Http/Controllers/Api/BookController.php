@@ -60,14 +60,15 @@ class BookController extends ApiController
     {
         parent::show($id);
 
-        $this->compacts['item']->load(['image',
+        $this->compacts['item']->load(['image','reviews',
             'userReadingBook' => function ($query) {
-                $query->select('id', 'name');
+                /*$query->select('id', 'name');
                 $query->orderBy('book_user.created_at', 'ASC');
-                $query->with('avatar');
+                $query->with('avatar');*/
             },
             'usersWaitingBook' => function($query) {
                 $query->select('id', 'name');
+                $query->orderBy('book_user.created_at', 'ASC');
             },
             'category' => function($query) {
                 $query->select('id', 'name');
@@ -79,9 +80,6 @@ class BookController extends ApiController
 
                 $query->select('id', 'name');
             },
-            'reviews' => function($query) {
-                $query->select('reviews.id','name');
-            }
         ]);
 
       return $this->jsonRender();

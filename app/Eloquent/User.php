@@ -10,11 +10,6 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'email',
@@ -25,14 +20,13 @@ class User extends Authenticatable
         'role',
         'office_id',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at', 'updated_at', 'deleted_at'
     ];
 
     public function setPasswordAttribute($value)

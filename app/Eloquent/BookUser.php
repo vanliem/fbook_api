@@ -2,7 +2,9 @@
 
 namespace App\Eloquent;
 
-class BookUser extends AbstractEloquent
+use Illuminate\Database\Eloquent\Model;
+
+class BookUser extends Model
 {
     protected $table = 'book_user';
 
@@ -10,4 +12,14 @@ class BookUser extends AbstractEloquent
         'type',
         'status',
     ];
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
