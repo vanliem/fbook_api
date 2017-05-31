@@ -108,5 +108,4 @@ class BookController extends ApiController
              $this->repository->booking($book, $data);
         });
     }
-
 }

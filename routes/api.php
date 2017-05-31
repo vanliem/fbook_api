@@ -31,4 +31,10 @@ Route::group(['prefix' => 'v0', 'as' => 'api.v0.', 'namespace' => 'Api'], functi
     Route::resource('books', 'BookController');
     Route::post('search', ['as' => 'search', 'uses' => 'BookController@search']);
     Route::post('books/booking/{book_id}', ['as' => 'books.booking', 'uses' => 'BookController@booking']);
+    Route::resource('categories', 'CategoryController', [
+        'only' => ['index']
+    ]);
+    Route::resource('offices', 'OfficeController', [
+        'only' => ['index']
+    ]);
 });
