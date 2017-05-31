@@ -19,8 +19,30 @@ return [
             'created_at'
         ],
     ],
+    'book_user' => [
+        'status' => [
+            'waiting' => 1,
+            'reading' => 2,
+            'done'    => 3,
+        ]
+    ],
     'filter_books' => [
-        'view', 'waiting', 'rating', 'latest'
+        'view' => [
+            'key' => 'view',
+            'field' => 'count_view',
+        ],
+        'waiting' => [
+            'key' => 'waiting',
+            'field' => '',
+        ],
+        'rating' => [
+            'key' => 'rating',
+            'field' => 'avg_star',
+        ],
+        'latest' => [
+            'key' => 'latest',
+            'field' => 'created_at',
+        ]
     ],
     'filter_type' => [
         'category', 'office'
@@ -33,10 +55,5 @@ return [
     ],
     'sort_type' => [
         'desc', 'asc'
-    ],
-    'status_book_user' => [
-        'waiting' => 1,
-        'reading' => 2,
-        'done'    => 3,
     ],
 ];

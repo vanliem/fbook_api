@@ -25,7 +25,7 @@ class BookingRequest extends FormRequest
     {
         return [
             'item.book_id' => 'required|numeric',
-            'item.status' => 'in:' . implode(',', array_values(config('model.status_book_user'))),
+            'item.status' => 'in:' . implode(',', array_values(config('model.book_user.status'))),
         ];
     }
 }

@@ -24,7 +24,7 @@ class IndexRequest extends AbstractRequest
     public function rules()
     {
         return [
-            'field' => 'in:' . implode(',', config('model.filter_books')),
+            'field' => 'in:' . implode(',', array_keys(config('model.filter_books'))),
         ];
     }
 }

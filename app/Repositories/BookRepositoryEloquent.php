@@ -21,32 +21,25 @@ class BookRepositoryEloquent extends AbstractRepositoryEloquent implements BookR
     {
         $limit = config('paginate.book_home_limit');
 
-        /**
-         * keys must match with config:
-         * - view
-         * - waiting
-         * - rating
-         * - latest
-         */
         return [
             [
-                'key' => 'latest',
-                'title' => translate('title_key.latest'),
+                'key' => config('model.filter_books.latest.key'),
+                'title' => translate('title_key.' . config('model.filter_books.latest.key')),
                 'data' => $this->getLatestBooks($with, $dataSelect, $limit)->items(),
             ],
             [
-                'key' => 'view',
-                'title' => translate('title_key.view'),
+                'key' => config('model.filter_books.view.key'),
+                'title' => translate('title_key.' . config('model.filter_books.view.key')),
                 'data' => $this->getBooksByCountView($with, $dataSelect, $limit)->items(),
             ],
             [
-                'key' => 'rating',
-                'title' => translate('title_key.rating'),
+                'key' => config('model.filter_books.rating.key'),
+                'title' => translate('title_key.' . config('model.filter_books.rating.key')),
                 'data' => $this->getBooksByRating($with, $dataSelect, $limit)->items(),
             ],
             [
-                'key' => 'waiting',
-                'title' => translate('title_key.waiting'),
+                'key' => config('model.filter_books.waiting.key'),
+                'title' => translate('title_key.' . config('model.filter_books.waiting.key')),
                 'data' => $this->getBooksByWaiting($with, $dataSelect, $limit)->items(),
             ],
         ];
@@ -167,9 +160,9 @@ class BookRepositoryEloquent extends AbstractRepositoryEloquent implements BookR
         $bookUpdate = array_only($attributes['item'], app(BookUser::class)->getFillable());
         $checkUser = $book->users()->find($this->user->id);
 
-        if ($checkUser && $checkUser->pivot->status == config('model.status_book_user.reading')) {
+        if ($checkUser && $checkUser->pivot->status == config('model.book_user.status.reading')) {
             $book->update(['status' => config('model.book.status.available')]);
-            $book->userReadingBook()->updateExistingPivot($this->user->id, ['status' => config('model.status_book_user.done')]);
+            $book->userReadingBook()->updateExistingPivot($this->user->id, ['status' => config('model.book_user.status.done')]);
         } else {
             $userWaiting = $book->users()
                 ->where('user_id', '<>', $this->user->id)
@@ -180,13 +173,13 @@ class BookRepositoryEloquent extends AbstractRepositoryEloquent implements BookR
                     $book->users()->attach($this->user->id, [
                         'user_id' => $this->user->id,
                         'book_id' => $bookUpdate['book_id'],
-                        'status' => config('model.status_book_user.waiting')
+                        'status' => config('model.book_user.status.waiting')
                     ]);
                 } else {
-                    $book->users()->updateExistingPivot($this->user->id, ['status' => config('model.status_book_user.waiting')]);
+                    $book->users()->updateExistingPivot($this->user->id, ['status' => config('model.book_user.status.waiting')]);
                 }
             } else {
-                $book->users()->updateExistingPivot($this->user->id, ['book_user.status' => config('model.status_book_user.reading')]);
+                $book->users()->updateExistingPivot($this->user->id, ['book_user.status' => config('model.book_user.status.reading')]);
                 $book->where('id', $bookUpdate['book_id'])->update(['status' => config('model.book.status.unavailable')]);
             }
         }

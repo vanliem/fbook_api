@@ -241,7 +241,7 @@ class BookTest extends TestCase
         $user = $book->userReadingBook()->first();
 
         $newUpdate['book_id'] = $book->id;
-        $newUpdate['status'] = config('model.status_book_user.done');
+        $newUpdate['status'] = config('model.book_user.status.done');
         $newUpdate['user_id'] = $user->id;
 
         $response = $this->call('POST', route('api.v0.books.booking', $book->id), ['item' => $newUpdate], [], [], $headers);
@@ -264,7 +264,7 @@ class BookTest extends TestCase
         $user = $book->usersWaitingBook()->first();
 
         $newUpdate['book_id'] = $book->id;
-        $newUpdate['status'] = config('model.status_book_user.done');
+        $newUpdate['status'] = config('model.book_user.status.done');
         $newUpdate['user_id'] = $user->id;
 
         $response = $this->call('POST', route('api.v0.books.booking', $book->id), ['item' => $newUpdate], [], [], $headers);
@@ -287,7 +287,7 @@ class BookTest extends TestCase
         $user = $this->createUser();
 
         $newUpdate['book_id'] = $book->id;
-        $newUpdate['status'] = config('model.status_book_user.done');
+        $newUpdate['status'] = config('model.book_user.status.done');
         $newUpdate['user_id'] = $user->id;
 
         $response = $this->call('POST', route('api.v0.books.booking', $book->id), ['item' => $newUpdate], [], [], $headers);
@@ -310,7 +310,7 @@ class BookTest extends TestCase
         $user = $this->createUser();
 
         $newUpdate['book_id'] = 0;
-        $newUpdate['status'] = config('model.status_book_user.done');
+        $newUpdate['status'] = config('model.book_user.status.done');
         $newUpdate['user_id'] = $user->id;
 
         $response = $this->call('POST', route('api.v0.books.booking', 0), ['item' => $newUpdate], [], [], $headers);
