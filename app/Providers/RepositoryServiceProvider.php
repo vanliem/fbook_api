@@ -15,6 +15,14 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\BookRepository::class,
             \App\Repositories\BookRepositoryEloquent::class,
         ],
+        'category' => [
+            \App\Contracts\Repositories\CategoryRepository::class,
+            \App\Repositories\CategoryRepositoryEloquent::class,
+        ],
+        'office' => [
+            \App\Contracts\Repositories\OfficeRepository::class,
+            \App\Repositories\OfficeRepositoryEloquent::class,
+        ],
     ];
 
     /**
